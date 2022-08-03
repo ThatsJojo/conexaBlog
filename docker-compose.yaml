@@ -3,10 +3,10 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-        MYSQL_ROOT_PASSWORD: Conexa@blog123#
-        MYSQL_DATABASE: blog
-        MYSQL_USER: conexa
-        MYSQL_PASSWORD: Conexa@blog123#
+        MYSQL_ROOT_PASSWORD: $db_root_password
+        MYSQL_DATABASE: $db_name
+        MYSQL_USER: $db_user
+        MYSQL_PASSWORD: $db_user_password
     volumes:
         - "data:/var/lib/mysql"
   php:
@@ -17,7 +17,7 @@ services:
     volumes:
       - .:/var/www/html
     environment:
-      WEB_DOCUMENT_ROOT: "/var/www/html/public_html"
+      WEB_DOCUMENT_ROOT: "/var/www/html/$ROOT_FOLDER"
 
   phpmyadmin:
     image: phpmyadmin
