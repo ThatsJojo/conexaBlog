@@ -1,0 +1,28 @@
+services:
+  database:
+    image: mysql:5.7
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: 12345
+        MYSQL_DATABASE: blog
+        MYSQL_USER: conexa
+        MYSQL_PASSWORD: Conexa@blog123#
+    volumes:
+        - "data:/var/lib/mysql"
+  php:
+    image: webdevops/php-apache:7.3-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+
+volumes:
+    data:
