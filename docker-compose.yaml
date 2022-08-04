@@ -8,16 +8,17 @@ services:
         MYSQL_USER: $db_user
         MYSQL_PASSWORD: $db_user_password
     volumes:
-        - "data:/var/lib/mysql"
+        - data:/var/lib/mysql
   php:
     image: webdevops/php-apache:7.3-alpine
     ports: 
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     volumes:
       - .:/var/www/html
     environment:
-      WEB_DOCUMENT_ROOT: "/var/www/html/$ROOT_FOLDER"
+      WEB_DOCUMENT_ROOT: /var/www/html/$ROOT_FOLDER
+      PHP_DATE_TIMEZONE: America/Sao_Paulo
 
   phpmyadmin:
     image: phpmyadmin
