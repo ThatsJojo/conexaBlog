@@ -6,7 +6,7 @@ services:
       MYSQL_ROOT_PASSWORD: Conexa@blog123#
     volumes:
       - data:/var/lib/mysql
-  php:
+  webserver:
     image: webdevops/php-apache:7.3-alpine
     ports: 
       - 80:80
