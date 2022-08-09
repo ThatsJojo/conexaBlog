@@ -6,8 +6,8 @@ VALUES ('csa.cleyton', 'senha', 'csa.cleyton@outlook.com', 'cleyton', 'cleyton',
 -- Usuário inserido
 SELECT @selectedUSER:= `user_id` FROM `users` WHERE `user_login`='csa.cleyton';
 
-INSERT INTO `sessions` (`session_user_agent`, `session_last_activity`, `user_id`) 
-VALUES ('Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0)', NOW(), @selectedUSER);
+INSERT INTO `sessions` (`session_id`,`session_user_agent`, `session_last_activity`, `user_id`) 
+VALUES ('f3e9690b0b9c5e68f9dc13acc815a97d','Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0)', NOW(), @selectedUSER);
 
 INSERT INTO `usermeta` (`user_id`, `meta_key`, `meta_value`)
 VALUES (@selectedUSER, 'role', 'admin');
@@ -86,6 +86,9 @@ SELECT @selectedPOST:= `post_id` FROM `posts` WHERE `post_author` = @selectedUSE
 
 INSERT INTO `postmeta` (`meta_key`,`post_id`,`meta_value`)
 VALUES ('views', @selectedPOST, '1500');
+
+INSERT INTO `postmeta` (`meta_key`,`post_id`,`meta_value`)
+VALUES ('img', @selectedPOST, concat(@selectedPOST,'.png'));
 
 INSERT INTO `comments` (`comment_post_id`, `comment_user_id`,`comment_date`,`comment_status`,`comment_parent_id`, `comment_content`)
 VALUES (@selectedPOST, @selectedUSER, NOW(), 'published', null, 'Adorei o conteúdo.\n Por favor, publiquem com maior frequência!');

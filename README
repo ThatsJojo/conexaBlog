@@ -1,0 +1,5 @@
+
+
+
+Em caso de modificações na estrutura do container "database", já havendo um volume criado, utilize o comando abaixo em lugar de apagar o volume:
+docker-compose up --build --force-recreate database

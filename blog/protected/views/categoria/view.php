@@ -1,13 +1,16 @@
 <?php
-/* @var $this SiteController */
-
+/* @var $this CategoriaController 
+   @var $model Term
+*/
 $this->pageTitle = Yii::app()->name;
-$posts = $dataProvider->getData();
+if(count($posts) < 1)
+	header('Location: '.Yii::app()->request->baseurl.'/');
 ?>
 
-<main class="pb-5">
+
+<main>
 	<div id="title-container">
-		<h1><?= CHtml::encode(Yii::app()->name); ?></h1>
+		<h1><?= CHtml::encode(Yii::app()->name).': '.$category; ?></h1>
 		<p>Somos especialistas em empresas de serviços recorrentes e queremos compartilhar tudo que estamos aprendendo. Vamos Juntos?</p>
 	</div>
 	<div id="posts-container" class="container d-flex justify-content-between align-items-around">

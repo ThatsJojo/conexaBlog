@@ -27,9 +27,22 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$criteria=new CDbCriteria(array(
+			'condition'=>'post_status="published"',
+			'order'=>'post_date DESC',
+			'with'=>'termRelationships',
+		));
+			 
+		$dataProvider=new CActiveDataProvider('Post', array(
+			'pagination'=>array(
+				'pageSize'=>5,
+			),
+			'criteria'=>$criteria,
+		));
+	 
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
 	}
 
 	/**
