@@ -2,7 +2,7 @@
         Copyright &copy; <?php echo date('Y'); ?> by Conexa.<br/>
 		All Rights Reserved.<br/>
 </footer> -->
-<div class="container-fluid navbar-fixed-bottom bg-light bg-gradient shadow-lg">
+<div class="container-fluid navbar-fixed-bottom bg-light bg-gradient shadow-lg mt-5">
   <footer class="py-3 my-4">
     <ul class="container nav justify-content-center border-bottom pb-3 mb-3">
         <li class="nav-item"><a href="<?= Yii::app()->request->baseUrl; ?>" class="nav-link px-2 text-muted">Home</a></li>
