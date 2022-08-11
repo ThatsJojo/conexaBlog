@@ -4,7 +4,10 @@ class CategoriaController extends Controller
 {
 	public function actionIndex()
 	{
-		$this->render('index');
+		$dataProvider = new CActiveDataProvider('Term');
+		$this->render('index', array(
+			'dataProvider' => $dataProvider,
+		));
 	}
 
 	public function actionView($id)
