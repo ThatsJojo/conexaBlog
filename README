@@ -41,5 +41,12 @@ As dependências de projeto estão todas integradas no repositório, incluindo o
     
 ## Demonstração
 
+### Home
+ ![Página inicial](/gitImages/home.png)
 
 
+### Comentários
+![Comentários](/gitImages/postComments.png)
+
+### Modelagem do banco
+![Modelagem do banco](/gitImages/BlogConexaBD.drawio.png)
