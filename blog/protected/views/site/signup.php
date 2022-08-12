@@ -51,7 +51,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model, 'user_pass'); ?>
-		<?php echo $form->textField($model, 'user_pass'); ?>
+		<?php echo $form->passwordField($model, 'user_pass', array('type'=>'password')); ?>
 		<?php echo $form->error($model, 'user_pass'); ?>
 	</div>
 
@@ -93,7 +93,7 @@
 	</div>
 
 
-	<input type="submit" name="yt0" value="Criar!" style="max-width: 100px; align-self: center;" class="btn btn-success">
+	<input type="submit" name="yt0" value="Criar!" style="max-width: 100px; align-self: center;" class="btn btn-success mt-3">
 
 
 	<?php $this->endWidget(); ?>
@@ -104,8 +104,12 @@
 	$(document).ready(function() {
 		$('#User_user_cpf').mask('000.000.000-00');
 
+		
+
 		$('#User_user_rg').mask('00.000.000-00');
 
 		$('#User_user_phone').mask('00 0 0000-0000');
 	});
+
+
 </script>
