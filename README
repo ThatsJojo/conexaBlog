@@ -15,7 +15,7 @@ Este projeto foi realizado durante o Onboarding da empresa Conexa. Seu objetivo 
 - Os formulários devem validar os dados tanto no front-end (utilizando máscaras) quanto no back-end (rules no model)
 ## Stack utilizada
 
-**Front-end:** Bootstrap, Html, css, Javascript
+**Front-end:** Bootstrap, Jquery, Html, css, Javascript, 
 
 **Back-end:** Framework Yii V1.1.22 + Giix Code e PHP 7.3
 
@@ -33,7 +33,7 @@ Este projeto foi implementado utilizando docker-compose. , você vai precisar ut
 
 ## Instalação
 
-As dependências de projeto estão todas integradas no repositório. Para rodar o projeto, basta rodar os containers via:
+As dependências de projeto estão todas integradas no repositório, incluindo o Editor de texto CKeditor. Para rodar o projeto, basta rodar os containers via:
 
 ```bash
   docker compose up
