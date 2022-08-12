@@ -74,7 +74,7 @@
 
 			<!-- Modal Header -->
 			<div class="modal-header">
-				<h4 class="modal-title">Modal Heading</h4>
+				<h4 class="modal-title">Verifique os dados informados:</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 			</div>
 
@@ -99,7 +99,6 @@
 
 		if (errorMessage) {
 			new bootstrap.Modal('#errorModal').show();
-
 		}
 	});
 </script>

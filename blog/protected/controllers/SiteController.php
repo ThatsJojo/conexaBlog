@@ -133,8 +133,8 @@ class SiteController extends Controller
 
 		if (isset($_POST['User'])) {
 			$model->attributes = $_POST['User'];
-			if ($model->validate()) {
-				// form inputs are valid, do something here
+			if ($model->save()) {
+				$this->redirect(Yii::app()->homeUrl);
 				return;
 			}
 		}

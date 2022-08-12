@@ -51,7 +51,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model, 'user_pass'); ?>
-		<?php echo $form->passwordField($model, 'user_pass', array('type'=>'password')); ?>
+		<?php echo $form->passwordField($model, 'user_pass', array('type' => 'password')); ?>
 		<?php echo $form->error($model, 'user_pass'); ?>
 	</div>
 
@@ -72,7 +72,7 @@
 		<?php echo $form->textField($model, 'user_sirname'); ?>
 		<?php echo $form->error($model, 'user_sirname'); ?>
 	</div>
-	
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model, 'user_cpf'); ?>
@@ -104,12 +104,8 @@
 	$(document).ready(function() {
 		$('#User_user_cpf').mask('000.000.000-00');
 
-		
-
 		$('#User_user_rg').mask('00.000.000-00');
 
 		$('#User_user_phone').mask('00 0 0000-0000');
 	});
-
-
 </script>

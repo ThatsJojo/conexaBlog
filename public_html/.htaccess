@@ -1,8 +1,0 @@
-Options -Indexes
-<FilesMatch "\.env$">
-    Deny from all
-</FilesMatch>
-
-RewriteEngine on
-RewriteRule /$ /index.php
-RewriteRule css/ ../index.php [NC,QSA]

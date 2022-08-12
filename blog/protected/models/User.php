@@ -34,6 +34,11 @@ class User extends BaseUser
 		return Yii::app()->request->baseUrl .'/images/users/'. ($this->usermetas(array('condition'=>'meta_key = "perfilImg"'))[0]->meta_value?? 'default.png');
 	}
 
+	protected function beforeSave (){
+		$this->user_pass = $this->hashPassword($this->user_pass);
+		return parent::beforeSave();
+	}
+
 	public static function getAdmins(){
 		return User::model()->with('usermetas')->findAll(array('condition'=>'meta_key = "role" AND meta_value = "admin"'));
 	}
