@@ -9,14 +9,14 @@ class SiteController extends Controller
 	{
 		return array(
 			// captcha action renders the CAPTCHA image displayed on the contact page
-			'captcha'=>array(
-				'class'=>'CCaptchaAction',
-				'backColor'=>0xFFFFFF,
+			'captcha' => array(
+				'class' => 'CCaptchaAction',
+				'backColor' => 0xFFFFFF,
 			),
 			// page action renders "static" pages stored under 'protected/views/site/pages'
 			// They can be accessed via: index.php?r=site/page&view=FileName
-			'page'=>array(
-				'class'=>'CViewAction',
+			'page' => array(
+				'class' => 'CViewAction',
 			),
 		);
 	}
@@ -27,21 +27,21 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$criteria=new CDbCriteria(array(
-			'condition'=>'post_status="published"',
-			'order'=>'post_date DESC',
-			'with'=>'termRelationships',
+		$criteria = new CDbCriteria(array(
+			'condition' => 'post_status="published"',
+			'order' => 'post_date DESC',
+			'with' => 'termRelationships',
 		));
-			 
-		$dataProvider=new CActiveDataProvider('Post', array(
-			'pagination'=>array(
-				'pageSize'=>5,
+
+		$dataProvider = new CActiveDataProvider('Post', array(
+			'pagination' => array(
+				'pageSize' => 4,
 			),
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
-	 
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+
+		$this->render('index', array(
+			'dataProvider' => $dataProvider,
 		));
 	}
 
@@ -50,9 +50,8 @@ class SiteController extends Controller
 	 */
 	public function actionError()
 	{
-		if($error=Yii::app()->errorHandler->error)
-		{
-			if(Yii::app()->request->isAjaxRequest)
+		if ($error = Yii::app()->errorHandler->error) {
+			if (Yii::app()->request->isAjaxRequest)
 				echo $error['message'];
 			else
 				$this->render('error', $error);
@@ -64,52 +63,86 @@ class SiteController extends Controller
 	 */
 	public function actionContact()
 	{
-		$model=new ContactForm;
-		if(isset($_POST['ContactForm']))
-		{
-			$model->attributes=$_POST['ContactForm'];
-			if($model->validate())
-			{
-				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-				$headers="From: $name <{$model->email}>\r\n".
-					"Reply-To: {$model->email}\r\n".
-					"MIME-Version: 1.0\r\n".
+		$model = new ContactForm;
+		if (isset($_POST['ContactForm'])) {
+			$model->attributes = $_POST['ContactForm'];
+			if ($model->validate()) {
+				$name = '=?UTF-8?B?' . base64_encode($model->name) . '?=';
+				$subject = '=?UTF-8?B?' . base64_encode($model->subject) . '?=';
+				$headers = "From: $name <{$model->email}>\r\n" .
+					"Reply-To: {$model->email}\r\n" .
+					"MIME-Version: 1.0\r\n" .
 					"Content-Type: text/plain; charset=UTF-8";
 
-				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
+				mail(Yii::app()->params['adminEmail'], $subject, $model->body, $headers);
+				Yii::app()->user->setFlash('contact', 'Thank you for contacting us. We will respond to you as soon as possible.');
 				$this->refresh();
 			}
 		}
-		$this->render('contact',array('model'=>$model));
+		$this->render('contact', array('model' => $model));
 	}
 
-	/**
-	 * Displays the login page
-	 */
 	public function actionLogin()
 	{
-		$model=new LoginForm;
+		$model = new User('login');
+		if (isset($_POST['User'])) {
+			$model->attributes = $_POST['User'];
+			if ($model->validate()) {
+				$identity = new UserIdentity($model->user_login, $model->user_pass);
+				$identity->authenticate();
+				switch ($identity->errorCode) {
+					case UserIdentity::ERROR_NONE:
+						Yii::app()->user->login($identity);
 
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-		{
+						$model = User::model()->findByPk(Yii::app()->user->id);
+						$isAdmin = $model->isAdmin();
+						$isViwer = $model->isViwer();
+
+						Yii::app()->user->setState('isAdmin', $isAdmin);
+						Yii::app()->user->setState('isViwer', $isViwer);
+
+						$this->redirect(Yii::app()->user->returnUrl);
+						return true;
+						break;
+					case UserIdentity::ERROR_USERNAME_INVALID:
+					case UserIdentity::ERROR_UNKNOWN_IDENTITY:
+						$errorMessage = 'Usuário não encontrado!';
+						break;
+					case UserIdentity::ERROR_PASSWORD_INVALID:
+						$errorMessage = 'Senha inválida!';
+						break;
+				}
+			}
+		}
+
+		$this->render('login', array('model' => $model, 'errorMessage' => $errorMessage));
+	}
+
+	public function actionSignup()
+	{
+		$model = new User;
+
+		// uncomment the following code to enable ajax-based validation
+
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-signup-form') {
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
+			echo 'zap';
 		}
 
-		// collect user input data
-		if(isset($_POST['LoginForm']))
-		{
-			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+
+		if (isset($_POST['User'])) {
+			$model->attributes = $_POST['User'];
+			if ($model->validate()) {
+				// form inputs are valid, do something here
+				return;
+			}
 		}
-		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->render('signup', array('model' => $model));
 	}
+
+
+
 
 	/**
 	 * Logs out the current user and redirect to homepage.

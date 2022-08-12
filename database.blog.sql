@@ -88,6 +88,12 @@ CREATE TABLE IF NOT EXISTS `comments`(
     FOREIGN KEY (`comment_parent_id`) REFERENCES `comments`(`comment_id`) ON DELETE SET NULL
 )ENGINE=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Data da inserção dos comentários
+CREATE TRIGGER `before_comment_insert` 
+    BEFORE INSERT ON `comments`
+    FOR EACH ROW
+    SET NEW.`comment_date` = NOW();
+
 -- Relações de termos como tags, categorias, etc.
 DROP TABLE IF EXISTS `terms`;
 CREATE TABLE IF NOT EXISTS `terms`(

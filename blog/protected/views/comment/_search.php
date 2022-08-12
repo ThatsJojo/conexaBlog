@@ -12,12 +12,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model, 'comment_post_id'); ?>
-		<?php echo $form->dropDownList($model, 'comment_post_id', GxHtml::listDataEx(Posts::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
+		<?php echo $form->dropDownList($model, 'comment_post_id', GxHtml::listDataEx(Post::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model, 'comment_user_id'); ?>
-		<?php echo $form->dropDownList($model, 'comment_user_id', GxHtml::listDataEx(Users::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
+		<?php echo $form->dropDownList($model, 'comment_user_id', GxHtml::listDataEx(User::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
 	</div>
 
 	<div class="row">

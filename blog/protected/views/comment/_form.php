@@ -15,12 +15,12 @@
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'comment_post_id'); ?>
-		<?php echo $form->dropDownList($model, 'comment_post_id', GxHtml::listDataEx(Posts::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->dropDownList($model, 'comment_post_id', GxHtml::listDataEx(Post::model()->findAllAttributes(null, true))); ?>
 		<?php echo $form->error($model,'comment_post_id'); ?>
 		</div><!-- row -->
 		<div class="row">
 		<?php echo $form->labelEx($model,'comment_user_id'); ?>
-		<?php echo $form->dropDownList($model, 'comment_user_id', GxHtml::listDataEx(Users::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->dropDownList($model, 'comment_user_id', GxHtml::listDataEx(User::model()->findAllAttributes(null, true))); ?>
 		<?php echo $form->error($model,'comment_user_id'); ?>
 		</div><!-- row -->
 		<div class="row">

@@ -55,11 +55,11 @@
 		</div><!-- row -->
 
 		<label><?php echo GxHtml::encode($model->getRelationLabel('comments')); ?></label>
-		<?php echo $form->checkBoxList($model, 'comments', GxHtml::encodeEx(GxHtml::listDataEx(Comments::model()->findAllAttributes(null, true)), false, true)); ?>
+		<?php echo $form->checkBoxList($model, 'comments', GxHtml::encodeEx(GxHtml::listDataEx(Comment::model()->findAllAttributes(null, true)), false, true)); ?>
 		<label><?php echo GxHtml::encode($model->getRelationLabel('posts')); ?></label>
-		<?php echo $form->checkBoxList($model, 'posts', GxHtml::encodeEx(GxHtml::listDataEx(Posts::model()->findAllAttributes(null, true)), false, true)); ?>
+		<?php echo $form->checkBoxList($model, 'posts', GxHtml::encodeEx(GxHtml::listDataEx(Post::model()->findAllAttributes(null, true)), false, true)); ?>
 		<label><?php echo GxHtml::encode($model->getRelationLabel('sessions')); ?></label>
-		<?php echo $form->checkBoxList($model, 'sessions', GxHtml::encodeEx(GxHtml::listDataEx(Sessions::model()->findAllAttributes(null, true)), false, true)); ?>
+		<?php echo $form->checkBoxList($model, 'sessions', GxHtml::encodeEx(GxHtml::listDataEx(Session::model()->findAllAttributes(null, true)), false, true)); ?>
 		<label><?php echo GxHtml::encode($model->getRelationLabel('usermetas')); ?></label>
 		<?php echo $form->checkBoxList($model, 'usermetas', GxHtml::encodeEx(GxHtml::listDataEx(Usermeta::model()->findAllAttributes(null, true)), false, true)); ?>
 

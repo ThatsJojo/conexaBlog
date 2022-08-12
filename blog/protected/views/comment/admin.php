@@ -46,12 +46,12 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 		array(
 				'name'=>'comment_post_id',
 				'value'=>'GxHtml::valueEx($data->commentPost)',
-				'filter'=>GxHtml::listDataEx(Posts::model()->findAllAttributes(null, true)),
+				'filter'=>GxHtml::listDataEx(Post::model()->findAllAttributes(null, true)),
 				),
 		array(
 				'name'=>'comment_user_id',
 				'value'=>'GxHtml::valueEx($data->commentUser)',
-				'filter'=>GxHtml::listDataEx(Users::model()->findAllAttributes(null, true)),
+				'filter'=>GxHtml::listDataEx(User::model()->findAllAttributes(null, true)),
 				),
 		'comment_date',
 		'comment_content',

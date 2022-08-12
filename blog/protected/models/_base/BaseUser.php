@@ -24,39 +24,64 @@
  * @property Session[] $sessions
  * @property Usermeta[] $usermetas
  */
-abstract class BaseUser extends GxActiveRecord {
+abstract class BaseUser extends GxActiveRecord
+{
 
-	public static function model($className=__CLASS__) {
+	public static function model($className = __CLASS__)
+	{
 		return parent::model($className);
 	}
 
-	public function tableName() {
+	public function tableName()
+	{
 		return 'users';
 	}
 
-	public static function label($n = 1) {
+	public static function label($n = 1)
+	{
 		return Yii::t('app', 'User|Users', $n);
 	}
 
-	public static function representingColumn() {
+	public static function representingColumn()
+	{
 		return 'user_login';
 	}
 
-	public function rules() {
+	public function rules()
+	{
+		echo $this->user_login;
 		return array(
-			array('user_login, user_pass, user_email', 'required'),
-			array('user_login', 'length', 'max'=>60),
-			array('user_pass', 'length', 'max'=>255),
-			array('user_email, user_sirname', 'length', 'max'=>100),
-			array('user_name', 'length', 'max'=>50),
-			array('user_cpf, user_phone', 'length', 'max'=>14),
-			array('user_rg', 'length', 'max'=>13),
+			// register scenario
+			array('user_email', 'required', 'on'=>'register'),
+
+			// geral scenario
+			array('user_login, user_pass', 'required',
+			'message' => 'Login e Senha são obrigatórios!.'),
+			array('user_email, user_sirname', 'length', 'max' => 100),
 			array('user_name, user_sirname, user_cpf, user_rg, user_phone', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('user_id, user_login, user_pass, user_email, user_name, user_sirname, user_cpf, user_rg, user_phone', 'safe', 'on'=>'search'),
+			array('user_id, user_login, user_pass, user_email, user_name, user_sirname, user_cpf, user_rg, user_phone', 'safe', 'on' => 'search'),
+			array('user_cpf, user_phone', 'length', 'max' => 14),
+			array('user_rg', 'length', 'max' => 13),
+			array('user_login', 'length', 'max' => 60),
+			array('user_pass', 'length', 'max' => 255),
+			array('user_name', 'length', 'max' => 50),
+			
+			// Patterns
+			array('user_email', 'match', 'pattern' => "/^[\w\.]+@[\w]+(\.[a-z]+)+$/",
+				'message' => 'Verifique o e-mail inserido.'),
+			array('user_login', 'match', 'pattern' => "/^[a-zA-Z0-9\.\_]+$/",
+				'message' => 'Verifique o login inserido.'),
+			array('user_cpf', 'match', 'pattern' => "/^[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9][0-9]\-[0-9][0-9]$/",
+				'message' => 'Verifique o cpf inserido.'),
+			array('user_rg', 'match', 'pattern' => "/^[0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9][0-9]\-[0-9][0-9]?$/",
+				'message' => 'Verifique o RG inserido.'),
+			array('user_phone', 'match', 'pattern' => "/^\d{9}[0-9]+$/",
+				'message' => 'Verifique o telefone inserido.'),
 		);
 	}
 
-	public function relations() {
+	public function relations()
+	{
 		return array(
 			'comments' => array(self::HAS_MANY, 'Comment', 'comment_user_id'),
 			'posts' => array(self::HAS_MANY, 'Post', 'post_author'),
@@ -65,12 +90,13 @@ abstract class BaseUser extends GxActiveRecord {
 		);
 	}
 
-	public function pivotModels() {
-		return array(
-		);
+	public function pivotModels()
+	{
+		return array();
 	}
 
-	public function attributeLabels() {
+	public function attributeLabels()
+	{
 		return array(
 			'user_id' => Yii::t('app', 'User'),
 			'user_login' => Yii::t('app', 'User Login'),
@@ -88,7 +114,8 @@ abstract class BaseUser extends GxActiveRecord {
 		);
 	}
 
-	public function search() {
+	public function search()
+	{
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('user_id', $this->user_id, true);

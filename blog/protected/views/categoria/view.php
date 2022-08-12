@@ -30,7 +30,7 @@ if (count($posts) < 1)
 			$categories = $post->termRelationships(array('condition' => 'relation_type = "category"'));
 
 			$id = $post['post_id'];
-			$date = (new DateTime($post['post_date']))->format('d/m/Y, G:i:s');
+			$date = $post->getFormatedPostDate();
 			$author = $post['postAuthor']['user_name'] . ' ' . $post['postAuthor']['user_sirname'] . ' <strong>@' . $post['postAuthor']['user_login'] . '</strong>';
 
 			// Verificando se há imagem registrada

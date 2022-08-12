@@ -15,7 +15,7 @@
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'post_author'); ?>
-		<?php echo $form->dropDownList($model, 'post_author', GxHtml::listDataEx(Users::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->dropDownList($model, 'post_author', GxHtml::listDataEx(User::model()->findAllAttributes(null, true))); ?>
 		<?php echo $form->error($model,'post_author'); ?>
 		</div><!-- row -->
 		<div class="row">
@@ -50,11 +50,11 @@
 		</div><!-- row -->
 
 		<label><?php echo GxHtml::encode($model->getRelationLabel('comments')); ?></label>
-		<?php echo $form->checkBoxList($model, 'comments', GxHtml::encodeEx(GxHtml::listDataEx(Comments::model()->findAllAttributes(null, true)), false, true)); ?>
+		<?php echo $form->checkBoxList($model, 'comments', GxHtml::encodeEx(GxHtml::listDataEx(Comment::model()->findAllAttributes(null, true)), false, true)); ?>
 		<label><?php echo GxHtml::encode($model->getRelationLabel('postmetas')); ?></label>
 		<?php echo $form->checkBoxList($model, 'postmetas', GxHtml::encodeEx(GxHtml::listDataEx(Postmeta::model()->findAllAttributes(null, true)), false, true)); ?>
 		<label><?php echo GxHtml::encode($model->getRelationLabel('termRelationships')); ?></label>
-		<?php echo $form->checkBoxList($model, 'termRelationships', GxHtml::encodeEx(GxHtml::listDataEx(TermRelationships::model()->findAllAttributes(null, true)), false, true)); ?>
+		<?php echo $form->checkBoxList($model, 'termRelationships', GxHtml::encodeEx(GxHtml::listDataEx(TermRelationship::model()->findAllAttributes(null, true)), false, true)); ?>
 
 <?php
 echo GxHtml::submitButton(Yii::t('app', 'Save'));

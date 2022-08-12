@@ -2,6 +2,28 @@
 
 class SiteoptionController extends GxController {
 
+	public function filters()
+	{
+		return array(
+			'accessControl',
+		);
+	}
+
+	public function accessRules()
+	{
+		return array(
+			array(
+				'allow',
+				'actions' => array('view','index','create','update','delete','admin'),
+				'expression' => 'Yii::app()->user->getState("isAdmin")',
+			),
+			array(
+				'deny',
+				'users' => array('*'),
+			),
+		);
+	}
+
 
 	public function actionView($id) {
 		$this->render('view', array(

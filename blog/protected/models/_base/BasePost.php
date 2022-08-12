@@ -48,12 +48,13 @@ abstract class BasePost extends GxActiveRecord {
 			array('post_date, post_title, post_modified, post_content_filtered', 'safe'),
 			array('post_author, post_date, post_title, post_status, post_mimetype, post_modified, post_content_filtered', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('post_id, post_author, post_date, post_title, post_status, post_mimetype, post_modified, post_content_filtered', 'safe', 'on'=>'search'),
+			array('post_date', 'required', 'message'=>'Adicione a data de publicação'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'comments' => array(self::HAS_MANY, 'Comment', 'comment_post_id'),
+			'comments' => array(self::HAS_MANY, 'Comment', 'comment_post_id', 'condition' => 'comment_status = "published"'),
 			'postmetas' => array(self::HAS_MANY, 'Postmeta', 'post_id'),
 			'postAuthor' => array(self::BELONGS_TO, 'User', 'post_author'),
 			'termRelationships' => array(self::HAS_MANY, 'TermRelationship', 'post_id'),
